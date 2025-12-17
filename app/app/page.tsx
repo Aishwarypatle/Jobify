@@ -1,10 +1,5 @@
-import { Input } from "@/components/ui/Input";
+import { redirect } from "next/navigation";
 
-export default function Home() {
-  return (
-    <>
-      Hello
-      <Input />
-    </>
-  );
+export default function HomePage() {
+  redirect("/jobs");
 }

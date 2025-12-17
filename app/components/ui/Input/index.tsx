@@ -1,12 +1,8 @@
-import React, { InputHTMLAttributes } from 'react';
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-    label?: string;
-    error?: string;
-}
+import { Input } from './input';
+import { CustomInputProps } from '@/types/entities';
 
-export const Input = React.forwardRef<HTMLInputElement, InputProps>(
-    ({ label, error, className, ...props }, ref) => {
+export const CustomInput = (({ label, type="text", error, className,placeholder, ...props } : CustomInputProps) => {
         return (
             <div className="w-full">
                 {label && (
@@ -14,9 +10,10 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
                         {label}
                     </label>
                 )}
-                <input
-                    ref={ref}
-                    className={`w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition ${
+                <Input
+                    type={type}
+                    placeholder={placeholder}
+                    className={`w-full px-4 py-2 border border-gray-300 rounded-lg !focus:!outline-none  focus:border-transparent transition ${
                         error ? 'border-red-500' : ''
                     } ${className}`}
                     {...props}
@@ -29,4 +26,4 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     }
 );
 
-Input.displayName = 'Input';
+export default CustomInput
