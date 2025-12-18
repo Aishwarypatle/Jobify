@@ -13,7 +13,7 @@ export const payRanges = [
 
 export const zones = [
     { label: "Zone A", value: "zone-a" },
-    { label: "Zone B", value: "zone-b" },
+    { label: "Zone B", value: "zone-b" }
 ]
 
 export const locationType = [

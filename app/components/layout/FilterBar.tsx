@@ -9,9 +9,6 @@ import { BadgeDollarSign, House, Layers, Trophy } from "lucide-react";
 
 const FilterBar = () => {
     const { isMobile, isDesktop, isReady } = useMediaQuery()
-
-    console.log({isMobile, isDesktop, isReady});
-    
     return (
         <div className="bg-white rounded-3xl p-2">
             <div className="grid bg-slate-100 items-center rounded-3xl p-6 gap-3">

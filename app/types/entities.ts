@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface CustomButtonProps {
     className?: string;
     handler?: () => void;
@@ -26,4 +28,13 @@ export interface CustomDropdownProps {
     options: DropdownOption[];
     onSelect: (value: string) => void;
     className?: string;
+}
+
+
+export interface CustomModalProps {
+  open: boolean;
+  onClose: () => void;
+  title?: string | any;
+  children: ReactNode | any;
+  className?: string;
 }
