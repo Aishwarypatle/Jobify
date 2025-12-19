@@ -2,7 +2,7 @@ import { Star } from "lucide-react"
 import Image from "next/image"
 import CustomButton from "../ui/Button"
 
-const JobDetailCard = ({ data }: any) => {    
+const JobDetailCard = ({ data }: any) => {
     return (
         <div className="bg-white rounded-3xl !h-full !overflow-y-auto p-3">
             <div className="bg-slate-100 p-6 rounded-3xl grid gap-4 items-center" >
