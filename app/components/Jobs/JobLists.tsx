@@ -5,6 +5,7 @@ import { useState } from "react";
 import CustomModal from "../ui/Modal";
 import JobDetailCard from "./JobDetailCard";
 import { useGetJobs } from "@/service/mapper/useJobs";
+import { CustomSkeleton } from "../ui/Loader";
 
 const JobLists = () => {
     const { jobs, totalJobs, isFetching, isError } = useGetJobs()
@@ -13,7 +14,15 @@ const JobLists = () => {
     const handleJobClick = (job: any) => {
         setSelectedJob(job)
     }
-
+    if (isFetching || isError) {
+        return (
+            <div>
+                {Array.from({ length: 6 }).map((_, i) => (
+                    <CustomSkeleton key={i} />
+                ))}
+            </div>
+    )}
+    
     return (
         <>
             <div>

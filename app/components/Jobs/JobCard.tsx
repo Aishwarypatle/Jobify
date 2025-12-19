@@ -16,10 +16,10 @@ const JobCard = ({data, handleJobClick}: any) => {
                     <div className="flex gap-6 items-center">
                         <p className="!text-xs">{formatJobPostedDateAgo(data?.publication_date)}</p>
                         <div className="relative inline-block">
-                            <div className={`rounded-full ${formatRemoteStatus(data?.candidate_required_location) === 'fully remote' ? 'bg-green-50 text-green-700' : 'bg-blue-50 text-blue-700'} px-4 py-1 text-xs font-semibold`}>
+                            <div className={`rounded-full ${formatRemoteStatus(data?.candidate_required_location) === 'fully remote' ? 'bg-green-50 text-green-700' : 'bg-purple-100 text-purple-700'} px-4 py-1 text-xs font-semibold`}>
                                 {formatRemoteStatus(data?.candidate_required_location)}
                             </div>
-                            <div className="absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 h-2 w-3 rotate-45 bg-green-50 rounded-sm">
+                            <div className={`absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 h-2 w-3 rotate-45 ${formatRemoteStatus(data?.candidate_required_location) === 'fully remote' ? 'bg-green-50 ' : 'bg-purple-100'} rounded-sm`}>
                             </div>
                         </div>
                     </div>
@@ -35,12 +35,12 @@ const JobCard = ({data, handleJobClick}: any) => {
                 <div className="bg-slate-100 p-6 rounded-3xl grid grid-cols-2 gap-4 items-center" onClick={handleJobClick}>
                     <div className="flex flex-row gap-4 items-center">
                         <Image
-                            src={data?.company_logo || "/logo.png"}
+                            src={"/logo.png"}
                             alt="company logo"
                             width={42}
                             height={42}
                             className="rounded-lg object-contain"
-                            unoptimized
+                            // unoptimized
                         />
                         <div className="flex flex-col">
                             <h3 className="!text-lg font-semibold">{data?.title || "N/A"}</h3>
