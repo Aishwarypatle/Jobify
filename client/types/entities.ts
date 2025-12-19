@@ -7,6 +7,8 @@ export interface CustomButtonProps {
 }
 
 export interface CustomInputProps {
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    value?: any;
     type?: string;
     placeholder?: string;
     className?: string;

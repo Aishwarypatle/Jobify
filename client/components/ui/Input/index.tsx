@@ -2,7 +2,7 @@
 import { Input } from './input';
 import { CustomInputProps } from '@/types/entities';
 
-export const CustomInput = (({ label, type="text", error, className,placeholder, ...props } : CustomInputProps) => {
+export const CustomInput = (({ value, label, onChange, type="text", error, className, placeholder, ...props } : CustomInputProps) => {
         return (
             <div className="w-full">
                 {label && (
@@ -12,6 +12,8 @@ export const CustomInput = (({ label, type="text", error, className,placeholder,
                 )}
                 <Input
                     type={type}
+                    value={value}
+                    onChange={onChange}
                     placeholder={placeholder}
                     className={`w-full px-4 py-2 border border-gray-300 rounded-lg !focus:!outline-none  focus:border-transparent transition ${
                         error ? 'border-red-500' : ''
