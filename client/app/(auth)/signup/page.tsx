@@ -52,12 +52,14 @@ export default function SignUpPage() {
           <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 px-4">
             <div className="w-full max-w-md flex flex-col gap-6 p-8 ">
                 <div className='flex justify-center items-center '>
-                    <Image
-                        src="/applogo.svg"
-                        alt="Jobify Logo"
-                        width={280}
-                        height={100}
-                    />
+                    <Link href={'/jobs'}>
+                        <Image
+                            src="/applogo.svg"
+                            alt="Jobify Logo"
+                            width={280}
+                            height={100}
+                        />
+                    </Link>
                 </div>
                 <div className='flex justify-center items-center mb-2'>
                     <h1 className='font-semibold tracking-wide text-3xl'>Register Here</h1>
