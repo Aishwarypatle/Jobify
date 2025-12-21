@@ -10,6 +10,6 @@ export const axiosClient = axios.create({
 
 export const authAxiosClient = axios.create({
     // baseURL: process.env.NEXT_PUBLIC_AUTH_API_URL,
-    baseURL: "http://localhost:8000/api/auth/",
+    baseURL: "http://43.204.148.255/api/auth/",
     withCredentials: true,
 })
