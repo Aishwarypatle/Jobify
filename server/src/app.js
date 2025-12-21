@@ -8,15 +8,9 @@ const app = express();
 
 console.log("APP.JS LOADED");
 
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-    credentials: true
-  })
-);
-
 // IMPORTANT: preflight support
-// app.options("*", cors());
+app.options("*", cors());
+app.use(cors());
 
 app.use(express.json());
 app.use(cookieParser());
