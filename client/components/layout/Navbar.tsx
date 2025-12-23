@@ -3,16 +3,14 @@
 import { redirect } from "next/navigation";
 import CustomButton from "../ui/Button";
 import Image from "next/image";
+import { useAuth } from "@/service/auth-context";
+import Link from "next/link"
+import { CustomSpinner } from "../ui/Loader";
 
 const Navbar = () => {
-
-    const handleRedirectToSignIn = () => {
-        redirect("/login")
-    }
-    const handleRedirectToSignUp = () => {
-        redirect("/signup")
-    }
-
+    const { user, isFetching} = useAuth()
+    
+    
     return (
        <nav className="bg-white shadow rounded-2xl fixed top-0 left-0 w-full z-50 py-4">
             <div className="container mx-auto px-4 py-3">
@@ -26,20 +24,25 @@ const Navbar = () => {
                         className="inline-block ml-2"
                     />
                 </div>
-                <div className="flex space-x-4">
-                    <CustomButton
-                        className="px-6 py-2 bg-transparent border cursor-pointer border-blue-400 text-blue-700 rounded-2xl cursor-pointer hover:bg-blue-700 hover:text-white transition"
-                        handler={handleRedirectToSignUp}
-                    >
-                    Sign Up
-                    </CustomButton>
-                    <CustomButton
-                        className="px-6 py-2 bg-blue-600 text-white rounded-2xl cursor-pointer hover:bg-blue-700 transition"
-                        handler={handleRedirectToSignIn}
-                    >
-                    Login
-                    </CustomButton>
-                </div>
+                {isFetching ? <CustomSpinner /> :
+                !user ? (<div className="flex space-x-4">
+                    <Link href={'/signup'}>
+                        <CustomButton
+                            className="px-6 py-2 bg-transparent border cursor-pointer border-blue-400 text-blue-700 rounded-2xl cursor-pointer hover:bg-blue-700 hover:text-white transition"
+                        >
+                            Sign Up
+                        </CustomButton>
+                        </Link>
+                    <Link href={'/login'}>
+                        <CustomButton
+                            className="px-6 py-2 bg-blue-600 text-white rounded-2xl cursor-pointer hover:bg-blue-700 transition"
+                        >
+                        Login
+                        </CustomButton>
+                    </Link>
+                </div>) : (
+                   <Link href="/profile">Profile</Link>
+                )}
                 </div>
             </div>
         </nav>
