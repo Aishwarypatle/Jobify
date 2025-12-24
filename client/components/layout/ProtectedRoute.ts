@@ -1,16 +1,18 @@
 import { useAuth } from "@/service/auth-context"
-import { redirect } from "next/navigation"
+import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 
-const ProtectedRoute = ({children}: any) => {
-    const { user, isFetching}  = useAuth()
-    useEffect(() => {
-        if(!isFetching || !user ) {
-            redirect("/login")
-        }
-    },[user, isFetching])
+const ProtectedRoute = ({ children }: any) => {
+    const { user, isFetching } = useAuth()
+    const router = useRouter()
 
-    if(isFetching) return null
+    useEffect(() => {
+        if (!isFetching && !user) {
+            router.push("/login")
+        }
+    }, [user, isFetching, router])
+
+    if (isFetching) return null
 
     return children
 }

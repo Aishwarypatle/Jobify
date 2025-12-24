@@ -10,7 +10,6 @@ import ProtectedRoute from "./ProtectedRoute";
 const Navbar = () => {
     const { user, isFetching} = useAuth()
     
-    
     return (
        <nav className="bg-white shadow rounded-2xl fixed top-0 left-0 w-full z-50 py-4">
             <div className="container mx-auto px-4 py-3">

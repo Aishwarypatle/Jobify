@@ -23,7 +23,7 @@ export const useRegisterMutation = () => {
 export const useGetUserInfoQuery = () => {
   return useQuery({
     queryKey: authKeys.profile(),
-    queryFn: ({ payload }:any) => authRequest.get("/me")
+    queryFn: () => authRequest.get("/me")
   })
 }
 // export const useGetJobByIdQuery = (id: string) => { 

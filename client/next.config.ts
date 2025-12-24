@@ -7,6 +7,6 @@ const nextConfig: NextConfig = {
       hostname: 'remotive.com',
     }],
   },
-};
+}
 
 export default nextConfig;
