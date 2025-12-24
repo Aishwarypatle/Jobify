@@ -1,6 +1,12 @@
-import { axiosClient } from './axios';
+'use client'
+import { authAxiosClient } from './axios';
 
-axiosClient.interceptors.response.use(
-  (res) => res,
-  (error) => Promise.reject(error)
-)
+authAxiosClient.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token")
+
+  if (token) {
+    config.headers = config.headers ?? {}
+    config.headers.Authorization = `Bearer ${token}`
+  }
+  return config
+})

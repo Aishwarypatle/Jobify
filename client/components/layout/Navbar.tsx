@@ -1,11 +1,11 @@
 'use client'
 
-import { redirect } from "next/navigation";
 import CustomButton from "../ui/Button";
 import Image from "next/image";
 import { useAuth } from "@/service/auth-context";
 import Link from "next/link"
 import { CustomSpinner } from "../ui/Loader";
+import ProtectedRoute from "./ProtectedRoute";
 
 const Navbar = () => {
     const { user, isFetching} = useAuth()
@@ -41,7 +41,9 @@ const Navbar = () => {
                         </CustomButton>
                     </Link>
                 </div>) : (
-                   <Link href="/profile">Profile</Link>
+                    <ProtectedRoute>
+                        <Link href="/profile">Profile</Link>
+                    </ProtectedRoute>
                 )}
                 </div>
             </div>
