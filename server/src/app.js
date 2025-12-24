@@ -6,11 +6,18 @@ import userRoutes from "./routes/user.routes.js";
 
 const app = express();
 
-console.log("APP.JS LOADED");
+const allowedOrigins = [
+  "http://localhost:3000",
+  // "http://your-frontend-domain.com"
+]
 
-// IMPORTANT: preflight support
-app.options("*", cors());
-app.use(cors());
+
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true
+  })
+)
 
 app.use(express.json());
 app.use(cookieParser());

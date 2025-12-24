@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 export const signup = async (req, res) => {
-    
+
   const { email, password, name } = req.body;
 
   const existing = await User.findOne({ email });
@@ -22,14 +22,23 @@ export const signup = async (req, res) => {
   const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
     expiresIn: "7d"
   });
-
   res.cookie("token", token, {
     httpOnly: true,
-    sameSite: "lax"
+    secure: true,
+    sameSite: "none",
+    path: "/",
+    maxAge: 7 * 24 * 60 * 60 * 1000
   });
 
-  res.status(201).json({ email: user.email, name: user.name });
+  res.status(200).json({
+    success: true,
+    user: {
+      id: user._id,
+      email: user.email
+    }
+  });
 }
+
 
 
 export const login = async (req, res) => {
@@ -37,27 +46,27 @@ export const login = async (req, res) => {
 
   const user = await User.findOne({ email });
   if (!user) {
-    return res.status(401).json({ message: "Invalid credentials" });
+    return res.status(401).json({ message: "Invalid Email and password" });
   }
 
   const isMatch = await bcrypt.compare(password, user.password);
   if (!isMatch) {
-    return res.status(401).json({ message: "Invalid credentials" });
+    return res.status(401).json({ message: "Wrong Password Entered" });
   }
 
-  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-    expiresIn: "7d"
-  })
+  const token = jwt.sign(
+    { id: user._id },
+    process.env.JWT_SECRET,
+    { expiresIn: "7d" }
+  );
 
-  res.cookie("token", token, {
-    httpOnly: true,
-    sameSite: "lax"
-  })
-
-    res.status(200).json({ 
-        email: user.email, token,
-        message: "Login Successfully"
-     });
+  res.json({
+    token,
+    user: {
+      id: user._id,
+      email: user.email
+    }
+  });
 };
 
 
@@ -67,6 +76,6 @@ export const logout = (req, res) => {
 };
 
 export const me = async (req, res) => {
-  const user = await User.findById(req.userId).select("email");
-  res.json({user});
+  const user = await User.findById(req.userId).select("-password");
+  res.json({user, message: "User fetched successfully" });
 };
