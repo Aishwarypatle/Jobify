@@ -2,19 +2,18 @@
 
 import CustomButton from "../ui/Button";
 import Image from "next/image";
-import { useAuth } from "@/service/auth-context";
 import Link from "next/link"
 import { CustomSpinner } from "../ui/Loader";
 import Profile from "../Profile";
 import { useState } from "react";
 import { User } from "lucide-react";
 import { useSelector } from "react-redux";
-import { selectUser } from "@/lib/slice/user";
+import { selectIsUserLoading, selectUser } from "@/lib/slice/user";
 
 const Navbar = () => {
-    const { user, isFetching} = useAuth()
-    // const { user } = useSelector((state: any) => state.user)
-    // const user = selectUser v 
+    const user = useSelector(selectUser)
+    const isFetching = useSelector(selectIsUserLoading)
+
     const [openProfile, setOpenProfile] = useState<any>(null)
 
     const handleOpenProfileClick = () => {
@@ -60,7 +59,7 @@ const Navbar = () => {
                 )}
                 </div>
             </div>
-            <Profile openProfile={openProfile} setOpenProfile={setOpenProfile} user={user}/>
+            {openProfile && <Profile openProfile={openProfile} setOpenProfile={setOpenProfile} />}
         </nav>
     )
 }

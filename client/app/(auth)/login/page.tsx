@@ -7,6 +7,9 @@ import { Eye, EyeOff, MailOpen } from 'lucide-react';
 import CustomButton from '@/components/ui/Button';
 import { useLoginMutation } from '@/service/query/auth/useAuthQuery';
 import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
+import { setUser } from '@/lib/slice/user';
+import { toast } from 'react-toastify';
 
 
 
@@ -17,6 +20,7 @@ export default function LoginPage() {
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
+    const dispatch = useDispatch()
 
     const { mutateAsync,  isSuccess, isError} = useLoginMutation()
 
@@ -32,12 +36,17 @@ export default function LoginPage() {
             email, password
         }
         try {
-            const response:any = await mutateAsync(payload)
+            const response:any = await toast.promise(mutateAsync(payload),{
+                pending: 'Logging in...',
+                success: 'User Login Succesfully',
+                error: 'Login failed. Please try again.'
+            })
             localStorage.setItem('token', response.token)
+            dispatch(setUser(response.user))
             router.push("/jobs")
-        } catch (err) {
+        } catch (err:any) {
             console.log({err})
-            setError('Login failed. Please try again.')
+            await toast.error("Login failed. Please try again.")
         } finally {
             setLoading(false);
         }

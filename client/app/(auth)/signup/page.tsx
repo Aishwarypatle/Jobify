@@ -2,11 +2,15 @@
 
 import CustomButton from '@/components/ui/Button';
 import CustomInput from '@/components/ui/Input';
+import { setUser } from '@/lib/slice/user';
 import { useRegisterMutation } from '@/service/query/auth/useAuthQuery';
 import { Eye, EyeOff, MailOpen } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 
 
 
@@ -17,13 +21,14 @@ export default function SignUpPage() {
     const [password, setPassword] = useState<string>('')
     const [showPassword, setShowPassword] = useState<boolean>(false)
     const [loading, setIsLoading] = useState<boolean>(false)
+    const dispatch = useDispatch()
+    const router = useRouter()
 
-    const { mutate, isPending, isSuccess } = useRegisterMutation()
+    const { mutateAsync } = useRegisterMutation()
 
     const handleShowPassword = () => {
         setShowPassword(!showPassword)
     }   
-    console.log(email);
     
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -37,12 +42,19 @@ export default function SignUpPage() {
         console.log({payload})
         try {
             
-            const response = mutate(payload)
+            const response:any = await toast.promise(mutateAsync(payload),
+                {
+                    pending: "Registering...",
+                    success: "User registered successfully",
+                    error: "User registration failed"
+                }
+            )
             console.log({response});
-            
-            // console.log('Login attempt:', { email, password });
-        } catch (err) {
-            // setError('Login failed. Please try again.');
+            dispatch(setUser(response.user))
+            router.push("/jobs")
+        } catch (err:any) {
+            console.log({err});
+            toast.error("User registration failed")
         } finally {
             setIsLoading(false);
         }

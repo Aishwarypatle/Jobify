@@ -1,7 +1,9 @@
 'use client'
 
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, ReactNode, useEffect } from "react";
 import { useGetUserInfoQuery } from "./query/auth/useAuthQuery";
+import { useDispatch } from "react-redux";
+import { setLoading, setUser } from "@/lib/slice/user";
 
 interface AuthContextType {
   user: any;
@@ -11,7 +13,16 @@ interface AuthContextType {
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const { data , isFetching } = useGetUserInfoQuery()
+  const { data, isFetching } = useGetUserInfoQuery()
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (data?.user) {
+      dispatch(setUser(data?.user))
+      dispatch(setLoading(isFetching))
+    }
+  }, [dispatch, isFetching])
+
   return (
     <AuthContext.Provider value={{ user: data?.user, isFetching }}>
       {children}

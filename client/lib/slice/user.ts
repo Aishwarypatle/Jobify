@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 export const userSlice = createSlice({
     name: 'user',
@@ -8,14 +8,14 @@ export const userSlice = createSlice({
         error: null
     },
     reducers: {
-        setUser: (state: any, action: any) => {
+        setUser: (state: any, action: PayloadAction<any>) => {
             state.user = action.payload
         },
-        setLoading: (state: any, action: any) => {
+        setLoading: (state: any, action: PayloadAction<any>) => {
             state.loading = action.payload
         },
-        setError: (state: any, action: any) => {
-            state.error = action.paload
+        setError: (state: any, action: PayloadAction<any>) => {
+            state.error = action.payload
         }
     }
 })
@@ -25,3 +25,4 @@ export const userSlice = createSlice({
 export const { setUser, setLoading, setError } = userSlice.actions
 export const userReducer = userSlice.reducer
 export const selectUser = (state: any) => state.user.user
+export const selectIsUserLoading = (state: any) => state.user.loading

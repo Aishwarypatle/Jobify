@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Providers from "./provider";
 import { AuthProvider } from "@/service/auth-context";
+import { ToastContainer } from "react-toastify";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,6 +33,13 @@ export default function RootLayout({
         <Providers>
             <AuthProvider>
               {children}
+              <ToastContainer 
+                limit={4} 
+                autoClose={2000}
+                position="top-center"
+                closeOnClick={true}
+                theme="colored"
+              />
             </AuthProvider>
           </Providers>
       </body>

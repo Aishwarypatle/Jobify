@@ -56,5 +56,4 @@ export interface User {
 export interface ProfileProps {
     openProfile: boolean;
     setOpenProfile: (openProfile: boolean) => void;
-    user: any;
 }
