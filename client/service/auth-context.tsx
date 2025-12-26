@@ -13,7 +13,7 @@ export const AuthContext = createContext<AuthContextType | undefined>(undefined)
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const { data , isFetching } = useGetUserInfoQuery()
   return (
-    <AuthContext.Provider value={{ user: data, isFetching }}>
+    <AuthContext.Provider value={{ user: data?.user, isFetching }}>
       {children}
     </AuthContext.Provider>
   );

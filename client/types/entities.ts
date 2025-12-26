@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-
 export interface CustomButtonProps {
     className?: string;
     handler?: () => void;
@@ -34,9 +33,28 @@ export interface CustomDropdownProps {
 
 
 export interface CustomModalProps {
-  open: boolean;
-  onClose: () => void;
-  title?: string | any;
-  children: ReactNode | any;
-  className?: string;
+    open: boolean;
+    onClose: () => void;
+    title?: string | any;
+    children: ReactNode | any;
+    className?: string;
+}
+
+export interface User {
+    _id: string;
+    name: string;
+    email: string;
+    bookmarks: string[];
+    appliedJobs: {
+        jobId: string;
+        appliedAt: string;
+    }[];
+    createdAt: string;
+    updatedAt: string;
+}
+
+export interface ProfileProps {
+    openProfile: boolean;
+    setOpenProfile: (openProfile: boolean) => void;
+    user: any;
 }

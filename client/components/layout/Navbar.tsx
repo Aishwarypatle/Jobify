@@ -5,11 +5,22 @@ import Image from "next/image";
 import { useAuth } from "@/service/auth-context";
 import Link from "next/link"
 import { CustomSpinner } from "../ui/Loader";
-import ProtectedRoute from "./ProtectedRoute";
+import Profile from "../Profile";
+import { useState } from "react";
+import { User } from "lucide-react";
+import { useSelector } from "react-redux";
+import { selectUser } from "@/lib/slice/user";
 
 const Navbar = () => {
     const { user, isFetching} = useAuth()
-    
+    // const { user } = useSelector((state: any) => state.user)
+    // const user = selectUser v 
+    const [openProfile, setOpenProfile] = useState<any>(null)
+
+    const handleOpenProfileClick = () => {
+        setOpenProfile(user)
+    }
+
     return (
        <nav className="bg-white shadow rounded-2xl fixed top-0 left-0 w-full z-50 py-4">
             <div className="container mx-auto px-4 py-3">
@@ -40,12 +51,16 @@ const Navbar = () => {
                         </CustomButton>
                     </Link>
                 </div>) : (
-                    <ProtectedRoute>
-                        <Link href="/profile">Profile</Link>
-                    </ProtectedRoute>
+                    <CustomButton
+                        className="bg-blue-100 hover:bg-blue-200 rounded-full !p-4 !py-6" 
+                        handler={handleOpenProfileClick}
+                    >
+                        <User color="blue" strokeWidth={2} size={28}/>
+                    </CustomButton>
                 )}
                 </div>
             </div>
+            <Profile openProfile={openProfile} setOpenProfile={setOpenProfile} user={user}/>
         </nav>
     )
 }

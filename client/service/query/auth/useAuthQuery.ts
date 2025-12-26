@@ -1,7 +1,7 @@
 import { authRequest } from "@/service/api/request"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { authKeys } from "./useAuthKeys"
-import { LoginPayload, RegisterPayload } from "@/types/service"
+import { LoginPayload, RegisterPayload, AuthResponse } from "@/types/service"
 
 
 export const useLoginMutation = () => {
@@ -23,7 +23,7 @@ export const useRegisterMutation = () => {
 export const useGetUserInfoQuery = () => {
   return useQuery({
     queryKey: authKeys.profile(),
-    queryFn: () => authRequest.get("/me")
+    queryFn: () => authRequest.get<AuthResponse>("/me")
   })
 }
 // export const useGetJobByIdQuery = (id: string) => { 

@@ -8,3 +8,8 @@ export type LoginPayload = {
   email: string;
   password: string;
 }
+
+import { User } from "./entities";
+export type AuthResponse = {
+  user: User;
+}
