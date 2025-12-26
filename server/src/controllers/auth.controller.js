@@ -32,10 +32,7 @@ export const signup = async (req, res) => {
 
   res.status(200).json({
     success: true,
-    user: {
-      id: user._id,
-      email: user.email
-    }
+    user
   });
 }
 
@@ -62,10 +59,7 @@ export const login = async (req, res) => {
 
   res.json({
     token,
-    user: {
-      id: user._id,
-      email: user.email
-    }
+    user
   });
 };
 
