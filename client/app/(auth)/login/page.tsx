@@ -6,18 +6,20 @@ import CustomInput from '@/components/ui/Input';
 import { Eye, EyeOff, MailOpen } from 'lucide-react';
 import CustomButton from '@/components/ui/Button';
 import { useLoginMutation } from '@/service/query/auth/useAuthQuery';
+import { useRouter } from 'next/navigation';
 
 
 
 export default function LoginPage() {
-
+    const router = useRouter()
     const [showPassword, setShowPassword] = useState(false) 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
 
-    const { mutate, isSuccess, isError} = useLoginMutation()
+    const { mutateAsync,  isSuccess, isError} = useLoginMutation()
+
     const handleShowPassword = () => {
         setShowPassword(!showPassword)
     }   
@@ -30,10 +32,12 @@ export default function LoginPage() {
             email, password
         }
         try {
-            const response = mutate(payload)
-            console.log('Login attempt:', response,{ isSuccess, isError});
+            const response:any = await mutateAsync(payload)
+            localStorage.setItem('token', response.token)
+            router.push("/jobs")
         } catch (err) {
-            setError('Login failed. Please try again.');
+            console.log({err})
+            setError('Login failed. Please try again.')
         } finally {
             setLoading(false);
         }
