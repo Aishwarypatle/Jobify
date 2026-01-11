@@ -53,8 +53,7 @@ export default function SignUpPage() {
             dispatch(setUser(response.user))
             router.push("/jobs")
         } catch (err:any) {
-            console.log({err});
-            toast.error("User registration failed")
+            console.log({err})
         } finally {
             setIsLoading(false);
         }

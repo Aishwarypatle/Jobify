@@ -46,7 +46,7 @@ export default function LoginPage() {
             router.push("/jobs")
         } catch (err:any) {
             console.log({err})
-            await toast.error("Login failed. Please try again.")
+            // await toast.error("Login failed. Please try again.")
         } finally {
             setLoading(false);
         }
